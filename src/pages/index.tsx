@@ -82,7 +82,7 @@ export default function Index(props: Props) {
 						<p>
 							<a
 								target="_blank"
-								href={`https://search.alistair.sh/?q=!maps+${lanyard.kv.location}`}
+								href={`https://search.alistair.sh/?q=!maps+Tehran,+Tehran+Province,+Iran`}
 								rel="noreferrer"
 								className="flex items-center px-2 pr-3 dark:text-white dark:text-opacity-50 no-underline bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-800 rounded-full transition-colors text-neutral-600"
 							>
