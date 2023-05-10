@@ -20,9 +20,8 @@ import { Data as LanyardData, LanyardError, LanyardResponse, useLanyard } from '
 import { ListItem } from '../components/list-item';
 import { DISCORD_ID } from '../components/song';
 import { PinnedRepo, useGitHubPinnedRepos } from '../hooks/github';
-import { age } from '../util/time';
 import { Github_UserName } from '../server/constants';
-import { getLanyard } from '../server/lanyard';
+import { age } from '../util/time';
 
 interface Props {
 	pinnedRepos: PinnedRepo[];
@@ -30,11 +29,11 @@ interface Props {
 }
 
 export default function Index(props: Props) {
-	const { data: projects = props.pinnedRepos } = useGitHubPinnedRepos('itz-amethyst');
+	const { data: projects = props.pinnedRepos } = useGitHubPinnedRepos(Github_UserName);
 
-	const { data: lanyard } = useLanyard(DISCORD_ID, {
-		fallbackData: props.lanyard,
-	});
+	// const { data: lanyard } = useLanyard(DISCORD_ID, {
+	// 	fallbackData: props.lanyard,
+	// });
 
 	const [showMeme, setShowMeme] = useState(false);
 	useEffect(() => {
