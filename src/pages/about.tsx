@@ -216,20 +216,20 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 		throw new Error('No tokens available');
 	}
 
-	// const tracks = await api.getMyTopTracks({
-	// 	time_range: 'medium_term',
-	// });
+	const tracks = await api.getMyTopTracks({
+		time_range: 'medium_term',
+	});
 
 	await redis.quit();
 
-	// const lfm = new LastFM(LAST_FM_API_KEY);
-	// const topLFMTracks = await lfm.getTopTracks('Callme_Milad', '12month');
+	const lfm = new LastFM(LAST_FM_API_KEY);
+	const topLFMTracks = await lfm.getTopTracks('Callme_Milad', '12month');
 
-	// return {
-	// 	props: {
-	// 		topTracks: tracks.body.items,
-	// 		randomLastFMTrack: rand(topLFMTracks),
-	// 	},
-	// 	revalidate: 120,
-	// };
+	return {
+		props: {
+			topTracks: tracks.body.items,
+			randomLastFMTrack: rand(topLFMTracks),
+		},
+		revalidate: 120,
+	};
 };
