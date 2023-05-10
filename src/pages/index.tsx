@@ -78,7 +78,7 @@ export default function Index(props: Props) {
 						</a>
 					)}
 
-					{lanyard && (
+					{/* {lanyard && ( */}
 						<p>
 							<a
 								target="_blank"
@@ -92,14 +92,14 @@ export default function Index(props: Props) {
 								</span>
 
 								<span className="-mb-0.5">
-									{lanyard.kv.location}
+									Tehran , Iran
 									&nbsp;
 								</span>
 
 								<span className="block -mb-0.5 ml-1 bg-gray-600 dark:bg-white rounded-full animate-pulse w-[6px] h-[6px]" />
 							</a>
 						</p>
-					)}
+					{/* )} */}
 				</div>
 
 				<h1 className="text-3xl sm:text-4xl md:text-6xl font-bold">
