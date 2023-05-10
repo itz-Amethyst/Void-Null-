@@ -78,11 +78,11 @@ export default function Index(props: Props) {
 						</a>
 					)}
 
-					{lanyard && (
+					{/* {lanyard && ( */}
 						<p>
 							<a
 								target="_blank"
-								href={`https://search.alistair.sh/?q=!maps+${lanyard.kv.location}`}
+								href={`https://search.alistair.sh/?q=!maps+Tehran,+Tehran+Province,+Iran`}
 								rel="noreferrer"
 								className="flex items-center px-2 pr-3 dark:text-white dark:text-opacity-50 no-underline bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-800 rounded-full transition-colors text-neutral-600"
 							>
@@ -99,7 +99,7 @@ export default function Index(props: Props) {
 								<span className="block -mb-0.5 ml-1 bg-gray-600 dark:bg-white rounded-full animate-pulse w-[6px] h-[6px]" />
 							</a>
 						</p>
-					)}
+					{/* )} */}
 				</div>
 
 				<h1 className="text-3xl sm:text-4xl md:text-6xl font-bold">
