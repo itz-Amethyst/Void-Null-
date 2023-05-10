@@ -254,10 +254,16 @@ export const getStaticProps: GetStaticProps<Props> = async function () {
 		async (response) => response.json() as Promise<PinnedRepo[]>,
 	);
 
-	const lanyard = await getLanyard(DISCORD_ID);
+	const lanyard = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
+
+	const lanyardBody = (await lanyard.json()) as LanyardResponse;
+
+	if ('error' in lanyardBody) {
+		throw new LanyardError(lanyard.status, lanyardBody.error.message);
+	}
 
 	return {
-		props: { pinnedRepos, lanyard},
+		props: { pinnedRepos, lanyard: lanyardBody.data },
 		revalidate: 120,
 	};
 };
