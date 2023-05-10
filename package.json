@@ -1,9 +1,8 @@
 {
-  "name": "Void(Null)",
-  "version": "1.0.0",
-  "main": "next.config.js",
-  "private": true,
-  "dependencies": {
+	"name": "void-null",
+	"version": "1.0.0",
+	"private": true,
+	"dependencies": {
 		"@headlessui/react": "^1.4.2",
 		"@naval-base/ms": "^3.1.0",
 		"dayjs": "^1.10.7",
@@ -78,6 +77,5 @@
 		"tailwindcss": "^3.0.6",
 		"typescript": "^4.5.4"
 	},
-  "author": "",
-  "license": "ISC"
+	"packageManager": "yarn@3.1.1"
 }
