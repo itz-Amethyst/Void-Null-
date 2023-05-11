@@ -1,29 +1,26 @@
 import ms from '@naval-base/ms';
+import clsx from 'clsx';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import IORedis from 'ioredis';
 
-import { GetStaticProps } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 import { FaHashtag } from 'react-icons/fa';
-import { HiExternalLink } from 'react-icons/hi';
+import { HiExternalLink , HiOutlineExternalLink } from 'react-icons/hi';
 import { MdExplicit } from 'react-icons/md';
 import { SiSpotify } from 'react-icons/si';
-import SpotifyWebAPI from 'spotify-web-api-node';
+import { useLanyard } from 'use-lanyard';
 import Banner from '../../public/banner.jpg';
 import { Details } from '../components/details';
+import { CardHoverEffect , hoverClassName } from '../components/hover-card';
 import { Modal } from '../components/modal';
+import { Time } from '../components/time';
 import {
-	LAST_FM_API_KEY,
-	REDIS_URL,
-	SPOTIFY_CLIENT_ID,
-	SPOTIFY_CLIENT_SECRET,
-	SPOTIFY_REDIS_KEYS,
+	DISCORD_ID,
 } from '../server/constants';
 
-import { LastFM, LastFMGetTrack } from '../server/lfm';
-import { rand } from '../util/types';
+import { formatList } from '../util/list';
 import TrackObjectFull = SpotifyApi.TrackObjectFull;
 import AlbumObjectFull = SpotifyApi.AlbumObjectFull;
 
@@ -31,12 +28,13 @@ dayjs.extend(relativeTime);
 
 interface Props {
 	topTracks: TrackObjectFull[];
-	// randomLastFMTrack: LastFMGetTrack;
 }
 
-// randomLastFMTrack
 
 export default function AboutPage({ topTracks }: Props) {
+
+	const { data: user } = useLanyard(DISCORD_ID);
+
 	return (
 		<div className="space-y-8">
 			<h1 className="block text-3xl sm:text-4xl md:text-6xl font-bold">About</h1>
@@ -72,166 +70,179 @@ export default function AboutPage({ topTracks }: Props) {
 				collection of my favourite songs of all time.
 			</p>
 
-			<div className="grid grid-cols-2 md:grid-cols-3 gap-4 gap-y-8">
-				{topTracks.map((track) => (
+			
+				{/* {topTracks.map((track) => (
 					<Track key={track.id} track={track} />
-				))}
-			</div>
-		</div>
-	);
-}
+				))} */}
 
-function Track({ track }: { track: TrackObjectFull }) {
-	const [statsOpen, setStatsOpen] = useState(false);
-
-	const image = track.album.images[0].url;
-	const artists = track.artists.map((artist) => artist.name).join(', ');
-
-	const close = () => {
-		setStatsOpen(false);
-	};
-
-	const open = () => {
-		setStatsOpen(true);
-	};
-
-	const album = track.album as AlbumObjectFull;
-
-	return (
-		<button
-			key={track.id}
-			type="button"
-			className="group flex flex-col space-y-2 text-left no-underline align-top focus:ring focus:ring-offset-4 dark:focus:ring-offset-gray-900 outline-none focus:outline-none"
-			aria-roledescription="Opens a stats modal"
-			onClick={open}
-		>
-			<Modal isOpen={statsOpen} setIsOpen={close} title={<SiSpotify size={24} />}>
-				<div className="space-y-4">
-					<div className="relative aspect-[3/1]">
-						<Image
-							src={image}
-							layout="fill"
-							alt={`Album cover art of ${track.album.name} by ${artists}`}
-							className="object-cover rounded-md"
-						/>
-					</div>
-
+		<div className='mx-auto grid max-w-3xl grid-cols-6 gap-6 px-6 pb-40 pt-16'>
+			<CardHoverEffect className="col-span-3 h-52">
+				{!user?.spotify || !user.spotify.album_art_url ? (
 					<a
-						href={track.external_urls.spotify}
-						className="group flex justify-between p-3 no-underline bg-gray-100 dark:bg-gray-900 rounded-md border dark:border-0"
+						href="https://open.spotify.com/playlist/18R9Cntl2PZEaGMLz4cyX2"
 						target="_blank"
-						rel="noreferrer"
+						rel="noopener noreferrer"
+						className={clsx('group relative flex h-full overflow-hidden rounded-2xl', hoverClassName)}
 					>
-						<div>
-							<h2 className="text-2xl font-bold group-hover:underline">{track.name}</h2>
-							<h3 className="text-sm italic text-gray-400">By {artists}</h3>
-						</div>
-
-						<div>
-							<HiExternalLink size={24} />
-						</div>
+						<span className="absolute inset-0 -z-10">
+							<img
+								src={'https://i.scdn.co/image/ab67706c0000da84ede0db7eb64b033f135a492c'}
+								className="absolute inset-0 h-full w-full bg-black  object-cover object-center brightness-50"
+								alt="Album cover art"
+							/>
+						</span>
+						<span className="flex flex-1 flex-col justify-between p-6 text-white">
+							<span className="flex justify-between">
+								<SiSpotify className="text-2xl" />
+								<HiOutlineExternalLink className="text-xl opacity-50 transition duration-500 group-hover:opacity-100" />
+							</span>
+							<div className="space-y-0.5">
+								<h2 className="font-title font-bold">
+									<span className="font-medium">playlist:</span>early travel
+								</h2>
+								<p className="text-sm">because you had to get a 3 hour bus journey in the early hours</p>
+							</div>
+						</span>
 					</a>
-
-					<div>
-						<Details
-							details={[
-								{
-									name: 'Released:',
-									value: (
-										<span>
-											{dayjs(album.release_date).fromNow()} ({dayjs(album.release_date).format('DD MMM YYYY')})
-										</span>
-									),
-								},
-								{
-									name: 'Album:',
-									value: album.name,
-								},
-								{
-									name: 'Duration:',
-									value: ms(track.duration_ms, true),
-								},
-							]}
-						/>
-					</div>
-				</div>
-			</Modal>
-
-			<div className="overflow-hidden w-full rounded-md image-span-block">
-				<Image
-					src={image}
-					className="group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105 grayscale-[50%]"
-					alt={`Album cover art for ${track.name} by ${artists}`}
-					width={400}
-					height={400}
-				/>
+				) : (
+					<a
+						href={`https://open.spotify.com/track/${user.spotify.track_id}`}
+						target="_blank"
+						rel="noopener noreferrer"
+						className={clsx('group relative flex h-full overflow-hidden rounded-2xl', hoverClassName)}
+					><span className="absolute inset-0 -z-10">
+							<img
+								src={user.spotify.album_art_url}
+								className="absolute inset-0 h-full w-full bg-black object-cover object-center brightness-50 transition-all duration-500 will-change-[transform,_filter] group-hover:scale-[1.15] group-hover:brightness-[0.4]"
+								alt="Album cover art"
+							/>
+						</span>
+						<span className="flex flex-1 flex-col justify-between p-6 text-white">
+							<span className="flex justify-between">
+								<SiSpotify className="text-2xl" />
+								<HiOutlineExternalLink className="text-xl opacity-50 transition duration-500 group-hover:opacity-100" />
+							</span>
+							<span>
+								<h2>
+									<span
+										className="mb-0.5 mr-1 inline-block h-2 w-2 animate-pulse rounded-full bg-green-500"
+										aria-hidden
+									/>{' '}
+									Listening to{' '}
+									<span className="font-bold" suppressHydrationWarning>
+										{user.spotify.song}
+									</span>{' '}
+									by{' '}
+									<span className="font-bold" suppressHydrationWarning>
+										{formatList(user.spotify.artist.split('; '), 'conjunction')}
+									</span>
+									.
+								</h2>
+							</span>
+						</span>
+					</a>
+				)}
+			</CardHoverEffect>
+			<Time/>
 			</div>
 
-			<h2 className="py-0.5 text-lg">
-				<span className="font-bold">
-					{track.explicit && <MdExplicit className="inline -mt-1" />} {track.name}
-				</span>{' '}
-				<span className="text-neutral-700 dark:text-neutral-400">• {artists}</span>
-			</h2>
-		</button>
+			</div>
+		
 	);
 }
 
-// export const getStaticProps: GetStaticProps<Props> = async () => {
-// 	const redis = new IORedis(REDIS_URL);
+// function Track({ track }: { track: TrackObjectFull }) {
+// 	const [statsOpen, setStatsOpen] = useState(false);
 
-// 	const [token, refresh] = await redis.mget(SPOTIFY_REDIS_KEYS.AccessToken, SPOTIFY_REDIS_KEYS.RefreshToken);
+// 	const image = track.album.images[0].url;
+// 	const artists = track.artists.map((artist) => artist.name).join(', ');
 
-// 	let api: SpotifyWebAPI;
-
-// 	if (!token && refresh) {
-// 		// If we don't have a token but we do have a refresh token
-
-// 		api = new SpotifyWebAPI({
-// 			clientId: SPOTIFY_CLIENT_ID,
-// 			clientSecret: SPOTIFY_CLIENT_SECRET,
-// 			refreshToken: refresh,
-// 		});
-
-// 		const result = await api.refreshAccessToken();
-
-// 		await redis.set(
-// 			SPOTIFY_REDIS_KEYS.AccessToken,
-// 			result.body.access_token,
-// 			'ex',
-
-// 			// Expires is in seconds as per https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
-// 			result.body.expires_in,
-// 		);
-
-// 		// If spotify wants us to use a new refresh token, we'll need to update it
-// 		if (result.body.refresh_token) {
-// 			await redis.set(SPOTIFY_REDIS_KEYS.RefreshToken, result.body.refresh_token);
-// 		}
-// 	} else if (token) {
-// 		api = new SpotifyWebAPI({
-// 			clientId: SPOTIFY_CLIENT_ID,
-// 			clientSecret: SPOTIFY_CLIENT_SECRET,
-// 			accessToken: token,
-// 		});
-// 	} else {
-// 		throw new Error('No tokens available');
-// 	}
-
-// 	const tracks = await api.getMyTopTracks({
-// 		time_range: 'medium_term',
-// 	});
-
-// 	await redis.quit();
-
-// 	// const lfm = new LastFM(LAST_FM_API_KEY);
-// 	// const topLFMTracks = await lfm.getTopTracks('Callme_Milad', '12month');
-
-// 	return {
-// 		props: {
-// 			topTracks: tracks.body.items,
-// 			// randomLastFMTrack: rand(topLFMTracks),
-// 		},
-// 		revalidate: 120,
+// 	const close = () => {
+// 		setStatsOpen(false);
 // 	};
-// };
+
+// 	const open = () => {
+// 		setStatsOpen(true);
+// 	};
+
+// 	const album = track.album as AlbumObjectFull;
+
+// 	return (
+// 		<button
+// 			key={track.id}
+// 			type="button"
+// 			className="group flex flex-col space-y-2 text-left no-underline align-top focus:ring focus:ring-offset-4 dark:focus:ring-offset-gray-900 outline-none focus:outline-none"
+// 			aria-roledescription="Opens a stats modal"
+// 			onClick={open}
+// 		>
+// 			<Modal isOpen={statsOpen} setIsOpen={close} title={<SiSpotify size={24} />}>
+// 				<div className="space-y-4">
+// 					<div className="relative aspect-[3/1]">
+// 						<Image
+// 							src={image}
+// 							layout="fill"
+// 							alt={`Album cover art of ${track.album.name} by ${artists}`}
+// 							className="object-cover rounded-md"
+// 						/>
+// 					</div>
+
+// 					<a
+// 						href={track.external_urls.spotify}
+// 						className="group flex justify-between p-3 no-underline bg-gray-100 dark:bg-gray-900 rounded-md border dark:border-0"
+// 						target="_blank"
+// 						rel="noreferrer"
+// 					>
+// 						<div>
+// 							<h2 className="text-2xl font-bold group-hover:underline">{track.name}</h2>
+// 							<h3 className="text-sm italic text-gray-400">By {artists}</h3>
+// 						</div>
+
+// 						<div>
+// 							<HiExternalLink size={24} />
+// 						</div>
+// 					</a>
+
+// 					<div>
+// 						<Details
+// 							details={[
+// 								{
+// 									name: 'Released:',
+// 									value: (
+// 										<span>
+// 											{dayjs(album.release_date).fromNow()} ({dayjs(album.release_date).format('DD MMM YYYY')})
+// 										</span>
+// 									),
+// 								},
+// 								{
+// 									name: 'Album:',
+// 									value: album.name,
+// 								},
+// 								{
+// 									name: 'Duration:',
+// 									value: ms(track.duration_ms, true),
+// 								},
+// 							]}
+// 						/>
+// 					</div>
+// 				</div>
+// 			</Modal>
+
+// 			<div className="overflow-hidden w-full rounded-md image-span-block">
+// 				<Image
+// 					src={image}
+// 					className="group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105 grayscale-[50%]"
+// 					alt={`Album cover art for ${track.name} by ${artists}`}
+// 					width={400}
+// 					height={400}
+// 				/>
+// 			</div>
+
+// 			<h2 className="py-0.5 text-lg">
+// 				<span className="font-bold">
+// 					{track.explicit && <MdExplicit className="inline -mt-1" />} {track.name}
+// 				</span>{' '}
+// 				<span className="text-neutral-700 dark:text-neutral-400">• {artists}</span>
+// 			</h2>
+// 		</button>
+// 	);
+// }
