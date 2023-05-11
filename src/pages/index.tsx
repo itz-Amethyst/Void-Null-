@@ -18,9 +18,7 @@ import {
 } from 'react-icons/si';
 import { Data as LanyardData } from 'use-lanyard';
 import { ListItem } from '../components/list-item';
-import { DISCORD_ID } from '../components/song';
 import { PinnedRepo, useGitHubPinnedRepos } from '../hooks/github';
-import { getLanyard } from '../server/lanyard';
 import { FullAge } from '../util/time';
 
 interface Props {
@@ -30,10 +28,6 @@ interface Props {
 
 export default function Index(props: Props) {
 	const { data: projects = props.pinnedRepos } = useGitHubPinnedRepos("itz-amethyst");
-
-	// const { data: lanyard } = useLanyard(DISCORD_ID, {
-	// 	fallbackData: props.lanyard,
-	// });
 
 	const [showMeme, setShowMeme] = useState(false);
 	useEffect(() => {
@@ -253,15 +247,6 @@ export const getStaticProps: GetStaticProps<Props> = async function () {
 		async (response) => response.json() as Promise<PinnedRepo[]>,
 	);
 
-	// const lanyard = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
-
-	// const lanyard = await getLanyard(DISCORD_ID)
-
-	// const lanyardBody = (await lanyard.json()) as LanyardResponse;
-
-	// if ('error' in lanyardBody) {
-	// 	throw new LanyardError(lanyard.status, lanyardBody.error.message);
-	// }
 
 	return {
 		props: { pinnedRepos },
