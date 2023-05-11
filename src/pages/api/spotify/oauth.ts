@@ -56,13 +56,13 @@ export default api({
 			throw new NextkitException(403, 'You are not permitted to update OAuth keys!');
 		}
 
-		const redis = new IORedis(REDIS_URL);
+		// const redis = new IORedis(REDIS_URL);
 
-		await redis.set(SPOTIFY_REDIS_KEYS.AccessToken, auth.access_token, 'ex', auth.expires_in);
+		// await redis.set(SPOTIFY_REDIS_KEYS.AccessToken, auth.access_token, 'ex', auth.expires_in);
 
-		await redis.set(SPOTIFY_REDIS_KEYS.RefreshToken, auth.refresh_token);
+		// await redis.set(SPOTIFY_REDIS_KEYS.RefreshToken, auth.refresh_token);
 
-		await redis.quit();
+		// await redis.quit();
 
 		return user;
 	},
