@@ -31,10 +31,12 @@ dayjs.extend(relativeTime);
 
 interface Props {
 	topTracks: TrackObjectFull[];
-	randomLastFMTrack: LastFMGetTrack;
+	// randomLastFMTrack: LastFMGetTrack;
 }
 
-export default function AboutPage({ topTracks, randomLastFMTrack }: Props) {
+// randomLastFMTrack
+
+export default function AboutPage({ topTracks }: Props) {
 	return (
 		<div className="space-y-8">
 			<h1 className="block text-3xl sm:text-4xl md:text-6xl font-bold">About</h1>
@@ -64,9 +66,9 @@ export default function AboutPage({ topTracks, randomLastFMTrack }: Props) {
 
 			<p>
 				I listen to a lot of Spotify and have always had a passion for music ever since . Over the last 12 months, I've
-				played the song <span className="font-bold">{randomLastFMTrack.name}</span> by{' '}
+				{/* played the song <span className="font-bold">{randomLastFMTrack.name}</span> by{' '}
 				<span className="font-bold">{randomLastFMTrack.artist.name}</span> exactly{' '}
-				<span className="font-bold">{randomLastFMTrack.playcount}</span> times! Below you can find an up-to-date
+				<span className="font-bold">{randomLastFMTrack.playcount}</span> times! Below you can find an up-to-date */}
 				collection of my favourite songs of all time.
 			</p>
 
@@ -175,61 +177,61 @@ function Track({ track }: { track: TrackObjectFull }) {
 	);
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
-	const redis = new IORedis(REDIS_URL);
+// export const getStaticProps: GetStaticProps<Props> = async () => {
+// 	const redis = new IORedis(REDIS_URL);
 
-	const [token, refresh] = await redis.mget(SPOTIFY_REDIS_KEYS.AccessToken, SPOTIFY_REDIS_KEYS.RefreshToken);
+// 	const [token, refresh] = await redis.mget(SPOTIFY_REDIS_KEYS.AccessToken, SPOTIFY_REDIS_KEYS.RefreshToken);
 
-	let api: SpotifyWebAPI;
+// 	let api: SpotifyWebAPI;
 
-	if (!token && refresh) {
-		// If we don't have a token but we do have a refresh token
+// 	if (!token && refresh) {
+// 		// If we don't have a token but we do have a refresh token
 
-		api = new SpotifyWebAPI({
-			clientId: SPOTIFY_CLIENT_ID,
-			clientSecret: SPOTIFY_CLIENT_SECRET,
-			refreshToken: refresh,
-		});
+// 		api = new SpotifyWebAPI({
+// 			clientId: SPOTIFY_CLIENT_ID,
+// 			clientSecret: SPOTIFY_CLIENT_SECRET,
+// 			refreshToken: refresh,
+// 		});
 
-		const result = await api.refreshAccessToken();
+// 		const result = await api.refreshAccessToken();
 
-		await redis.set(
-			SPOTIFY_REDIS_KEYS.AccessToken,
-			result.body.access_token,
-			'ex',
+// 		await redis.set(
+// 			SPOTIFY_REDIS_KEYS.AccessToken,
+// 			result.body.access_token,
+// 			'ex',
 
-			// Expires is in seconds as per https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
-			result.body.expires_in,
-		);
+// 			// Expires is in seconds as per https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
+// 			result.body.expires_in,
+// 		);
 
-		// If spotify wants us to use a new refresh token, we'll need to update it
-		if (result.body.refresh_token) {
-			await redis.set(SPOTIFY_REDIS_KEYS.RefreshToken, result.body.refresh_token);
-		}
-	} else if (token) {
-		api = new SpotifyWebAPI({
-			clientId: SPOTIFY_CLIENT_ID,
-			clientSecret: SPOTIFY_CLIENT_SECRET,
-			accessToken: token,
-		});
-	} else {
-		throw new Error('No tokens available');
-	}
+// 		// If spotify wants us to use a new refresh token, we'll need to update it
+// 		if (result.body.refresh_token) {
+// 			await redis.set(SPOTIFY_REDIS_KEYS.RefreshToken, result.body.refresh_token);
+// 		}
+// 	} else if (token) {
+// 		api = new SpotifyWebAPI({
+// 			clientId: SPOTIFY_CLIENT_ID,
+// 			clientSecret: SPOTIFY_CLIENT_SECRET,
+// 			accessToken: token,
+// 		});
+// 	} else {
+// 		throw new Error('No tokens available');
+// 	}
 
-	const tracks = await api.getMyTopTracks({
-		time_range: 'medium_term',
-	});
+// 	const tracks = await api.getMyTopTracks({
+// 		time_range: 'medium_term',
+// 	});
 
-	await redis.quit();
+// 	await redis.quit();
 
-	const lfm = new LastFM(LAST_FM_API_KEY);
-	const topLFMTracks = await lfm.getTopTracks('Callme_Milad', '12month');
+// 	// const lfm = new LastFM(LAST_FM_API_KEY);
+// 	// const topLFMTracks = await lfm.getTopTracks('Callme_Milad', '12month');
 
-	return {
-		props: {
-			topTracks: tracks.body.items,
-			randomLastFMTrack: rand(topLFMTracks),
-		},
-		revalidate: 120,
-	};
-};
+// 	return {
+// 		props: {
+// 			topTracks: tracks.body.items,
+// 			// randomLastFMTrack: rand(topLFMTracks),
+// 		},
+// 		revalidate: 120,
+// 	};
+// };
