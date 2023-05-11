@@ -14,6 +14,8 @@ export const SPOTIFY_CLIENT_SECRET = "f50d333dca744b1195908274da58653e";
 export const GRAPHQL_URL = "";
 export const REDIS_URL = "";
 
+export const DISCORD_ID = '1001889586626175006';
+
 // export const Github_UserName = env('Github_UserName')
 // export const DISCORD_WEBHOOK = env('DISCORD_WEBHOOK');
 // export const LAST_FM_API_KEY = env('LAST_FM_API_KEY');
