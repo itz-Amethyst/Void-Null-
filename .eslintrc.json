@@ -35,7 +35,14 @@
 		"@typescript-eslint/quotes": "off",
 		"react/jsx-curly-newline": "off",
 		"@typescript-eslint/no-unsafe-member-access" : "off",
-
+		"@typescript-eslint/prefer-optional-chain" : "off",
+		"@typescript-eslint/restrict-template-expressions" : "off",
+		"@typescript-eslint/no-unsafe-assignment" : "off",
+		"@typescript-eslint/no-use-before-define" : "off",
+		"@typescript-eslint/no-misused-promises" : "off",
+		"@typescript-eslint/no-unnecessary-type-assertion" : "off",
+		"@typescript-eslint/no-unnecessary-condition" : "off",
+		
 		// Doesn"t work with 3.0.0 jit
 		"tailwindcss/no-custom-classname": "off"
 	}
