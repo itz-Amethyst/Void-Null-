@@ -16,13 +16,12 @@ import {
 	SiThreedotjs,
 	SiTwitter,
 } from 'react-icons/si';
-import { Data as LanyardData, LanyardError, LanyardResponse, useLanyard } from 'use-lanyard';
+import { Data as LanyardData } from 'use-lanyard';
 import { ListItem } from '../components/list-item';
 import { DISCORD_ID } from '../components/song';
 import { PinnedRepo, useGitHubPinnedRepos } from '../hooks/github';
-import { Github_UserName } from '../server/constants';
-import { age } from '../util/time';
 import { getLanyard } from '../server/lanyard';
+import { age } from '../util/time';
 
 interface Props {
 	pinnedRepos: PinnedRepo[];
@@ -30,7 +29,7 @@ interface Props {
 }
 
 export default function Index(props: Props) {
-	const { data: projects = props.pinnedRepos } = useGitHubPinnedRepos(Github_UserName);
+	const { data: projects = props.pinnedRepos } = useGitHubPinnedRepos("itz-amethyst");
 
 	// const { data: lanyard } = useLanyard(DISCORD_ID, {
 	// 	fallbackData: props.lanyard,
@@ -47,7 +46,7 @@ export default function Index(props: Props) {
 		<>
 			<div className="space-y-4">
 				<div className="flex items-center space-x-3">
-					<a href={`https://github.com/${Github_UserName}`} target="_blank" rel="noreferrer" aria-label="GitHub Profile">
+					<a href={`https://github.com/itz-amethyst`} target="_blank" rel="noreferrer" aria-label="GitHub Profile">
 						<SiGithub className="w-7 h-7" />
 						<span className="sr-only">GitHub Profile</span>
 					</a>
@@ -145,7 +144,7 @@ export default function Index(props: Props) {
 				<ul className="grid grid-cols-3 sm:grid-cols-4 gap-4">
 					<ListItem icon={SiDocker} text="Docker" />
 					<ListItem icon={SiDotnet} text=".Net" />
-					<ListItem icon={SiCsharp} text="Postgres" />
+					<ListItem icon={SiCsharp} text="C#" />
 					<ListItem icon={SiReact} text="React" />
 					<ListItem icon={SiBlender} text="Blender" />
 					<ListItem icon={SiThreedotjs} text="Three.js" />
@@ -250,7 +249,7 @@ function ProjectCard({ repo: project }: { repo: PinnedRepo }) {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async function () {
-	const pinnedRepos = await fetch(`https://gh-pinned.nxl.sh/api/user/${Github_UserName}`).then(
+	const pinnedRepos = await fetch(`https://gh-pinned.nxl.sh/api/user/itz-amethyst`).then(
 		async (response) => response.json() as Promise<PinnedRepo[]>,
 	);
 
