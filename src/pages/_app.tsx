@@ -98,7 +98,7 @@ export default function App({ Component, pageProps }: AppProps) {
 					fallback: {
 						// SSR Lanyard's data
 						[`lanyard:${DISCORD_ID}`]: pageProps?.lanyard as unknown,
-						'https://gh-pinned.nxl.sh/api/user/fyko': pageProps?.pinnedRepos as unknown,
+						'https://gh-pinned.nxl.sh/api/user/itz-amethyst': pageProps?.pinnedRepos as unknown,
 					},
 					fetcher,
 				}}
@@ -106,7 +106,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<Toaster toastOptions={{ position: 'top-left' }} />
 
 				<Head>
-					<title>Carter Himmel</title>
+					<title>Void(Null)</title>
 				</Head>
 
 				<AnimatePresence>

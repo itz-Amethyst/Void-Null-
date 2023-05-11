@@ -52,7 +52,7 @@ export default api({
 
 		const { body: user } = await userAPI.getMe();
 
-		if (user.id !== 'carter_himmel') {
+		if (user.id !== '⤥⇘𝒞𝒶𝓁𝓁𝓂𝑒_𝑀𝒾𝓁𝒶𝒹⇙⤦') {
 			throw new NextkitException(403, 'You are not permitted to update OAuth keys!');
 		}
 
