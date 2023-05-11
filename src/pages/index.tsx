@@ -21,7 +21,7 @@ import { ListItem } from '../components/list-item';
 import { DISCORD_ID } from '../components/song';
 import { PinnedRepo, useGitHubPinnedRepos } from '../hooks/github';
 import { getLanyard } from '../server/lanyard';
-import { age } from '../util/time';
+import { FullAge } from '../util/time';
 
 interface Props {
 	pinnedRepos: PinnedRepo[];
@@ -106,7 +106,7 @@ export default function Index(props: Props) {
 					Howdy, I'm <span className="text-blurple">Void(Null)</span> 🤠
 				</h1>
 
-				<p className="opacity-80">I'm a ~{age.toPrecision(6)} year old software engineer based in Tehran, Iran.</p>
+				<p className="opacity-80">I'm a ~{FullAge.toPrecision(6)} year old software engineer based in Tehran, Iran.</p>
 			</div>
 
 			<div className="space-y-4">
@@ -255,7 +255,7 @@ export const getStaticProps: GetStaticProps<Props> = async function () {
 
 	// const lanyard = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
 
-	const lanyard = await getLanyard(DISCORD_ID)
+	// const lanyard = await getLanyard(DISCORD_ID)
 
 	// const lanyardBody = (await lanyard.json()) as LanyardResponse;
 
@@ -264,7 +264,7 @@ export const getStaticProps: GetStaticProps<Props> = async function () {
 	// }
 
 	return {
-		props: { pinnedRepos, lanyard },
+		props: { pinnedRepos },
 		revalidate: 10,
 	};
 };
