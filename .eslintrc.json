@@ -34,6 +34,7 @@
 		"quote-props": "off",
 		"@typescript-eslint/quotes": "off",
 		"react/jsx-curly-newline": "off",
+		"@typescript-eslint/no-unsafe-member-access" : "off"
 
 		// Doesn"t work with 3.0.0 jit
 		"tailwindcss/no-custom-classname": "off"
