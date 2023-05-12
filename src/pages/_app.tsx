@@ -24,9 +24,9 @@ Router.events.on('routeChangeError', () => NProgress.done());
 function NavLink(props: { children: ReactNode; href: string; closeMenu?: () => void; target?: string }) {
 	return (
 		<li>
-			<Link href={props.href}>
+			<Link href={props.href} className='no-underline'>
 				<a
-					className="block sm:inline-block py-3 sm:px-5 font-mono text-lg sm:text-sm sm:font-normal dark:hover:text-white no-underline sm:underline rounded-md sm:rounded-full dark:sm:hover:bg-white/10 sm:bg-white/0 sm:hover:bg-gray-900/5"
+					className="block sm:inline-block py-3 sm:px-5 font-mono text-lg sm:text-sm sm:font-normal dark:hover:text-white no-underline rounded-md sm:rounded-full dark:sm:hover:bg-white/10 sm:bg-white/0 sm:hover:bg-gray-900/5"
 					onClick={props.closeMenu}
 					target={props.target}
 				>
@@ -85,9 +85,6 @@ export default function App({ Component, pageProps }: AppProps) {
 			<NavLink href="/talk" closeMenu={closeMenu}>
 				/talk
 			</NavLink>
-			{/* <NavLink href="https://blog.fyko.net" target="_blank" closeMenu={closeMenu}>
-				blog
-			</NavLink> */}
 		</>
 	);
 
@@ -163,11 +160,11 @@ export default function App({ Component, pageProps }: AppProps) {
 						</div>
 					</div>
 
-					<main className="md:py-24 mx-auto space-y-12 max-w-3xl">
+					<main className="md:py-8 mx-auto space-y-12 max-w-3xl">
 						<Component {...pageProps} />
 					</main>
 
-					<footer className="p-4 py-10 mx-auto mt-20 max-w-3xl border-t-2 border-gray-900 dark:border-white border-opacity-10 opacity-50">
+					<footer className="p-4 py-10 mx-auto max-w-3xl border-t-2 border-gray-900 dark:border-white border-opacity-10 opacity-50">
 						<h1 className="text-3xl font-bold">CallMe_Milad</h1>
 						<p>Software Engineer • {new Date().getFullYear()}</p>
 					</footer>
