@@ -12,7 +12,7 @@ export const LAST_FM_API_KEY = "";
 export const SPOTIFY_CLIENT_ID = "85aae2651907440ca6b08e178ace949e";
 export const SPOTIFY_CLIENT_SECRET = "f50d333dca744b1195908274da58653e";
 export const GRAPHQL_URL = "";
-export const REDIS_URL = "";
+export const REDIS_URL = "redis://default:Q4UC4EF059YHeEW8aO17iErTEjj52BmX@redis-13573.c57.us-east-1-4.ec2.cloud.redislabs.com:13573";
 
 export const DISCORD_ID = '1001889586626175006';
 
