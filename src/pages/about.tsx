@@ -1,39 +1,49 @@
-import ms from '@naval-base/ms';
 import clsx from 'clsx';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 
 import Image from 'next/image';
-import Link from 'next/link';
-import { useState } from 'react';
 import { FaHashtag } from 'react-icons/fa';
-import { HiExternalLink , HiOutlineExternalLink } from 'react-icons/hi';
-import { MdExplicit } from 'react-icons/md';
+import { HiOutlineExternalLink } from 'react-icons/hi';
 import { SiSpotify } from 'react-icons/si';
-import { useLanyard } from 'use-lanyard';
+import { Data, useLanyard } from 'use-lanyard';
 import Banner from '../../public/banner.jpg';
-import { Details } from '../components/details';
+import { Discord } from '../components/discordComponent';
 import { CardHoverEffect , hoverClassName } from '../components/hover-card';
-import { Modal } from '../components/modal';
 import { Time } from '../components/time';
 import {
 	DISCORD_ID,
 } from '../server/constants';
 
+import { getLanyard } from '../server/lanyard';
 import { formatList } from '../util/list';
-import TrackObjectFull = SpotifyApi.TrackObjectFull;
-import AlbumObjectFull = SpotifyApi.AlbumObjectFull;
+// import TrackObjectFull = SpotifyApi.TrackObjectFull;
+// import AlbumObjectFull = SpotifyApi.AlbumObjectFull;
 
-dayjs.extend(relativeTime);
+// dayjs.extend(relativeTime);
 
-interface Props {
-	topTracks: TrackObjectFull[];
+// interface Props {
+// 	topTracks: TrackObjectFull[];
+// }
+
+interface Props{
+	lanyard: Data;
 }
 
+export const getStaticProps: GetStaticProps<Props> = async () => {
+	const lanyard = await getLanyard(DISCORD_ID);
 
-export default function AboutPage({ topTracks }: Props) {
+	return {
+		revalidate: 10,
+		props: {lanyard},
+	};
+};
+
+
+// export default function AboutPage({ topTracks }: Props) {
+export default function AboutPage(props: Props) {
 
 	const { data: user } = useLanyard(DISCORD_ID);
+
+	const status = user?.discord_status ?? 'offline';
 
 	return (
 		<div className="space-y-8">
@@ -75,78 +85,103 @@ export default function AboutPage({ topTracks }: Props) {
 					<Track key={track.id} track={track} />
 				))} */}
 
-		<div className='mx-auto grid max-w-3xl grid-cols-6 gap-6 px-6 pb-40 pt-16'>
-			<CardHoverEffect className="col-span-3 h-52">
-				{!user?.spotify || !user.spotify.album_art_url ? (
-					<a
-						href="https://open.spotify.com/playlist/18R9Cntl2PZEaGMLz4cyX2"
-						target="_blank"
-						rel="noopener noreferrer"
-						className={clsx('group relative flex h-full overflow-hidden rounded-2xl', hoverClassName)}
-					>
-						<span className="absolute inset-0 -z-10">
-							<img
-								src={'https://i.scdn.co/image/ab67706c0000da84ede0db7eb64b033f135a492c'}
-								className="absolute inset-0 h-full w-full bg-black  object-cover object-center brightness-50"
-								alt="Album cover art"
-							/>
-						</span>
-						<span className="flex flex-1 flex-col justify-between p-6 text-white">
-							<span className="flex justify-between">
-								<SiSpotify className="text-2xl" />
-								<HiOutlineExternalLink className="text-xl opacity-50 transition duration-500 group-hover:opacity-100" />
+			<div className='mx-auto grid max-w-3xl grid-cols-6 gap-6 px-6 pb-40 pt-16'>
+				<CardHoverEffect className="col-span-3 h-52">
+					{!user?.spotify || !user.spotify.album_art_url ? (
+						<a
+							href="https://open.spotify.com/playlist/18R9Cntl2PZEaGMLz4cyX2"
+							target="_blank"
+							rel="noopener noreferrer"
+							className={clsx('group relative flex h-full overflow-hidden rounded-2xl no-underline', hoverClassName)}
+						>
+							<span className="absolute inset-0 -z-10">
+								<Image
+									src={Banner}
+									className="absolute inset-0 h-full w-full bg-black  object-cover object-center brightness-50"
+									alt="Album cover art"
+								/>
 							</span>
-							<div className="space-y-0.5">
-								<h2 className="font-title font-bold">
-									<span className="font-medium">playlist:</span>early travel
-								</h2>
-								<p className="text-sm">because you had to get a 3 hour bus journey in the early hours</p>
-							</div>
-						</span>
-					</a>
-				) : (
-					<a
-						href={`https://open.spotify.com/track/${user.spotify.track_id}`}
-						target="_blank"
-						rel="noopener noreferrer"
-						className={clsx('group relative flex h-full overflow-hidden rounded-2xl', hoverClassName)}
-					><span className="absolute inset-0 -z-10">
-							<img
-								src={user.spotify.album_art_url}
-								className="absolute inset-0 h-full w-full bg-black object-cover object-center brightness-50 transition-all duration-500 will-change-[transform,_filter] group-hover:scale-[1.15] group-hover:brightness-[0.4]"
-								alt="Album cover art"
-							/>
-						</span>
-						<span className="flex flex-1 flex-col justify-between p-6 text-white">
-							<span className="flex justify-between">
-								<SiSpotify className="text-2xl" />
-								<HiOutlineExternalLink className="text-xl opacity-50 transition duration-500 group-hover:opacity-100" />
+							<span className="flex flex-1 flex-col justify-between p-6 text-white">
+								<span className="flex justify-between">
+									<SiSpotify className="text-2xl" />
+									<HiOutlineExternalLink className="text-xl opacity-50 transition duration-500 group-hover:opacity-100" />
+								</span>
+								<div className="space-y-0.5">
+									<h2 className="font-title font-bold">
+										<span className="font-medium">playlist:</span>early travel
+									</h2>
+									<p className="text-sm">because you had to get a 3 hour bus journey in the early hours</p>
+								</div>
 							</span>
-							<span>
-								<h2>
-									<span
-										className="mb-0.5 mr-1 inline-block h-2 w-2 animate-pulse rounded-full bg-green-500"
-										aria-hidden
-									/>{' '}
-									Listening to{' '}
-									<span className="font-bold" suppressHydrationWarning>
-										{user.spotify.song}
-									</span>{' '}
-									by{' '}
-									<span className="font-bold" suppressHydrationWarning>
-										{formatList(user.spotify.artist.split('; '), 'conjunction')}
-									</span>
-									.
-								</h2>
+						</a>
+					) : (
+						<a
+							href={`https://open.spotify.com/track/${user.spotify.track_id}`}
+							target="_blank"
+							rel="noopener noreferrer"
+							className={clsx('group relative flex h-full overflow-hidden rounded-2xl no-underline', hoverClassName)}
+						><span className="absolute inset-0 -z-10">
+								<img
+									src={user.spotify.album_art_url}
+									className="absolute inset-0 h-full w-full bg-black object-cover object-center brightness-50 transition-all duration-500 will-change-[transform,_filter] group-hover:scale-[1.15] group-hover:brightness-[0.4]"
+									alt="Album cover art"
+								/>
 							</span>
-						</span>
-					</a>
-				)}
-			</CardHoverEffect>
-			<Time/>
+							<span className="flex flex-1 flex-col justify-between p-6 text-white">
+								<span className="flex justify-between">
+									<SiSpotify className="text-2xl" />
+									<HiOutlineExternalLink className="text-xl opacity-50 transition duration-500 group-hover:opacity-100" />
+								</span>
+								<span>
+									<h2>
+										<span
+											className="mb-0.5 mr-1 inline-block h-2 w-2 animate-pulse rounded-full bg-green-500"
+											aria-hidden
+										/>{' '}
+										Listening to{' '}
+										<span className="font-bold" suppressHydrationWarning>
+											{user.spotify.song}
+										</span>{' '}
+										by{' '}
+										<span className="font-bold" suppressHydrationWarning>
+											{formatList(user.spotify.artist.split('; '), 'conjunction')}
+										</span>
+										.
+									</h2>
+								</span>
+							</span>
+						</a>
+					)}
+				</CardHoverEffect>
+
+						{/* //? need to work on resize section */}
+				<Time/>
+
+					{/* <div
+					className={clsx(
+						'col-span-3 flex h-52 items-center justify-center rounded-2xl text-4xl md:col-span-2',
+						{
+							online: 'bg-green-500 text-green-50',
+							idle: 'bg-orange-400 text-orange-50 ',
+							dnd: 'bg-red-500 text-red-50',
+							offline: 'bg-blurple text-white/90',
+						}[status],
+					)}
+				>
+					<div className="-rotate-[4deg] scale-[1] space-y-1 text-center md:scale-[1.2]">
+						<h2>
+							<SiDiscord className="inline" /> <span>{status}</span>
+						</h2>
+
+						<p className="text-base">
+							{user?.discord_user.username}#{user?.discord_user.discriminator}
+						</p>
+					</div>
+				</div> */}
+				<Discord lanyard={user} status={status}/>
 			</div>
 
-			</div>
+		</div>
 		
 	);
 }
