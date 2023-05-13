@@ -1,14 +1,16 @@
 import clsx from 'clsx';
 
+import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import { FaHashtag } from 'react-icons/fa';
 import { HiOutlineExternalLink } from 'react-icons/hi';
 import { SiSpotify } from 'react-icons/si';
-import { Data, useLanyard } from 'use-lanyard';
+import { Data } from 'use-lanyard';
 import Banner from '../../public/banner.jpg';
 import { Discord } from '../components/discordComponent';
 import { CardHoverEffect , hoverClassName } from '../components/hover-card';
 import { Time } from '../components/time';
+import { useUpdatingLanyard } from '../hooks/lanyard';
 import {
 	DISCORD_ID,
 } from '../server/constants';
@@ -25,15 +27,15 @@ import { formatList } from '../util/list';
 // }
 
 interface Props{
-	lanyard: Data;
+	user: Data;
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-	const lanyard = await getLanyard(DISCORD_ID);
+	const user = await getLanyard(DISCORD_ID);
 
 	return {
 		revalidate: 10,
-		props: {lanyard},
+		props: {user},
 	};
 };
 
@@ -41,7 +43,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 // export default function AboutPage({ topTracks }: Props) {
 export default function AboutPage(props: Props) {
 
-	const { data: user } = useLanyard(DISCORD_ID);
+	const { data: user } = useUpdatingLanyard(DISCORD_ID , props.user);
 
 	const status = user?.discord_status ?? 'offline';
 
