@@ -7,8 +7,8 @@ import { RiSendPlane2Line } from 'react-icons/ri';
 import { SiDiscord, SiTwitter } from 'react-icons/si';
 import { useLanyard } from 'use-lanyard';
 import { ListItem } from '../components/list-item';
-import { DISCORD_ID } from '../components/song';
 import { fetcher } from '../util/fetcher';
+import { DISCORD_ID } from '../server/constants';
 
 const statusMap = {
 	online: 'bg-green-500',
@@ -124,7 +124,7 @@ export default function Talk() {
 										/>
 									</span>
 								) : (
-									<span>↯𝓥𝓸𝓲𝓭(𝓝𝓾𝓵𝓵)™#02001</span>
+									<span>↯𝓥𝓸𝓲𝓭(𝓝𝓾𝓵𝓵)™#0023</span>
 								)
 							}
 						/>

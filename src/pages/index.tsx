@@ -111,7 +111,7 @@ export default function Index(props: Props) {
 					What do I do? 💭
 				</h1>
 				<p className="opacity-80">
-					I'm currently enjoying myself by researching and learning stuffs - Maybe 1 day I sent a shuttle into the air XD
+					I'm currently enjoying myself by researching and learning stuffs - Maybe 1 day I will send a shuttle into the air XD
 					<br></br>
 					<br></br>
 					Below are some of my popular open source projects. In total, the following repos have earned me{' '}
