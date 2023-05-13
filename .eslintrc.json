@@ -42,6 +42,7 @@
 		"@typescript-eslint/no-misused-promises" : "off",
 		"@typescript-eslint/no-unnecessary-type-assertion" : "off",
 		"@typescript-eslint/no-unnecessary-condition" : "off",
+		"arrow-body-style": "off",
 		
 		// Doesn"t work with 3.0.0 jit
 		"tailwindcss/no-custom-classname": "off"

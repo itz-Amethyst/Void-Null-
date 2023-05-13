@@ -7,8 +7,8 @@ import { RiSendPlane2Line } from 'react-icons/ri';
 import { SiDiscord, SiTwitter } from 'react-icons/si';
 import { useLanyard } from 'use-lanyard';
 import { ListItem } from '../components/list-item';
-import { fetcher } from '../util/fetcher';
 import { DISCORD_ID } from '../server/constants';
+import { fetcher } from '../util/fetcher';
 
 const statusMap = {
 	online: 'bg-green-500',
