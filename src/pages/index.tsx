@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { GetStaticProps } from 'next';
 import React, { useEffect, useReducer, useState } from 'react';
-import { FaHashtag, FaSmileWink } from 'react-icons/fa';
+import { FaAdversal, FaGamepad, FaHashtag, FaSmileWink } from 'react-icons/fa';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import {
 	SiBlender,
@@ -30,11 +30,19 @@ export default function Index(props: Props) {
 	const { data: projects = props.pinnedRepos } = useGitHubPinnedRepos("itz-amethyst");
 
 	const [showMeme, setShowMeme] = useState(false);
+
+	const [showFirstSite, setShowFirstSite] = useState(false);
 	useEffect(() => {
 		window.addEventListener('keypress', (e) => {
 			if (e.key.toLowerCase() === 'h') setShowMeme(!showMeme);
 		});
 	}, [showMeme, setShowMeme]);
+
+	useEffect(() => {
+		window.addEventListener('keypress', (e) => {
+			if (e.key.toLowerCase() === 'i') setShowFirstSite(!showFirstSite);
+		});
+	}, [showFirstSite, setShowFirstSite]);
 
 	return (
 		<>
@@ -72,7 +80,13 @@ export default function Index(props: Props) {
 						</a>
 					)}
 
-					{/* {lanyard && ( */}
+					{showFirstSite && (
+						<a href="/firstSite" target="_blank" rel="noreferrer" aria-label="My first WebSite">
+						<FaGamepad className="w-7 h-7" />
+						<span className="sr-only">What it should be ???! 🤔</span>
+					</a>
+					)}
+
 						<p>
 							<a
 								target="_blank"
@@ -93,11 +107,10 @@ export default function Index(props: Props) {
 								<span className="block -mb-0.5 ml-1 bg-gray-600 dark:bg-white rounded-full animate-pulse w-[6px] h-[6px]" />
 							</a>
 						</p>
-					{/* )} */}
 				</div>
-
+				
 				<h1 className="text-3xl sm:text-4xl md:text-6xl font-bold">
-					Howdy, I'm <span className="text-blurple">Void(Null)</span> 🤠
+					Sup, I'm <span className="text-blurple">Void(Null)</span> (￣﹃￣)
 				</h1>
 
 				<p className="opacity-80">I'm a ~{FullAge.toPrecision(6)} year old software engineer based in Tehran, Iran.</p>

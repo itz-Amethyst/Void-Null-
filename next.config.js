@@ -4,7 +4,6 @@ module.exports = {
 	images: {
 		domains: [
 			'source.unsplash.com',
-			'lastfm.freetls.fastly.net',
 			'i.scdn.co',
 			'cdn.discordapp.com',
 		],
@@ -16,6 +15,11 @@ module.exports = {
 				destination: 'https://shattereddisk.github.io/rickroll/rickroll.mp4',
 				permanent: false,
 			},
+			{
+				source:'/firstSite',
+				destination: 'https://callme-milad.pages.dev/',
+				permanent: false,
+			}
 		];
 	},
 };
