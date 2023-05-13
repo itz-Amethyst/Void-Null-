@@ -9,12 +9,13 @@ import NProgress from 'nprogress';
 import React, { ReactNode, StrictMode, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { SWRConfig } from 'swr';
-import { DISCORD_ID, Song } from '../components/song';
+import { Song } from '../components/song';
 
 import 'react-tippy/dist/tippy.css';
 import 'tailwindcss/tailwind.css';
 import '../styles/global.css';
 import 'nprogress/nprogress.css';
+import { DISCORD_ID } from '../server/constants';
 import { fetcher } from '../util/fetcher';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
