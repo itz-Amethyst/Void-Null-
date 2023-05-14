@@ -4,7 +4,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Router } from 'next/router';
-import Script from 'next/script';
+// import Script from 'next/script';
 import NProgress from 'nprogress';
 import React, { ReactNode, StrictMode, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
@@ -171,10 +171,10 @@ export default function App({ Component, pageProps }: AppProps) {
 					</footer>
 				</div>
 			</SWRConfig>
-			<Script src="https://science.fyko.net/latest.js" />
+			{/* <Script src="https://science.fyko.net/latest.js" />
 			<noscript>
 				<img src="https://science.fyko.net/noscript.gif" alt="" referrerPolicy="no-referrer-when-downgrade" />
-			</noscript>
+			</noscript> */}
 		</StrictMode>
 	);
 }
