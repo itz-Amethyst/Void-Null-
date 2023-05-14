@@ -1,5 +1,14 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
+
+	env:{
+		GITHUB_USERNAME : process.env.GITHUB_USERNAME,
+		DISCORD_WEBHOOK : process.env.DISCORD_WEBHOOK,
+		SPOTIFY_CLIENT_ID : process.env.SPOTIFY_CLIENT_ID,
+		SPOTIFY_CLIENT_SECRET : process.env.SPOTIFY_CLIENT_SECRET,
+		REDIS_URL : process.env.REDIS_URL
+	},
+
 	reactStrictMode: true,
 	images: {
 		domains: [
