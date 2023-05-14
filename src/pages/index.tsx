@@ -19,7 +19,7 @@ import {
 import { Data as LanyardData } from 'use-lanyard';
 import { ListItem } from '../components/list-item';
 import { PinnedRepo, useGitHubPinnedRepos } from '../hooks/github';
-import { Github_UserName } from '../server/constants';
+import { GITHUB_USERNAME } from '../server/constants';
 import { FullAge } from '../util/time';
 
 interface Props {
@@ -28,7 +28,7 @@ interface Props {
 }
 
 export default function Index(props: Props) {
-	const { data: projects = props.pinnedRepos } = useGitHubPinnedRepos(Github_UserName);
+	const { data: projects = props.pinnedRepos } = useGitHubPinnedRepos(GITHUB_USERNAME!);
 
 	const [showMeme, setShowMeme] = useState(false);
 
@@ -49,7 +49,7 @@ export default function Index(props: Props) {
 		<>
 			<div className="space-y-4">
 				<div className="flex items-center space-x-3">
-					<a href={`https://github.com/${Github_UserName}`} target="_blank" rel="noreferrer" aria-label="GitHub Profile">
+					<a href={`https://github.com/${GITHUB_USERNAME}`} target="_blank" rel="noreferrer" aria-label="GitHub Profile">
 						<SiGithub className="w-7 h-7" />
 						<span className="sr-only">GitHub Profile</span>
 					</a>
@@ -257,7 +257,7 @@ function ProjectCard({ repo: project }: { repo: PinnedRepo }) {
 }
 
 export const getStaticProps: GetStaticProps = async function () {
-	const pinnedRepos = await fetch(`https://gh-pinned.nxl.sh/api/user/${Github_UserName}`).then(
+	const pinnedRepos = await fetch(`https://gh-pinned.nxl.sh/api/user/${GITHUB_USERNAME}`).then(
 		async (response) => response.json() as Promise<PinnedRepo[]>,
 	);
 

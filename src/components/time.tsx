@@ -59,11 +59,11 @@ function Day({time}: {time: Date}) {
 			<div className="flex w-full items-center justify-center">
 				<div className="opacity-85 flex items-baseline space-x-1 md:space-x-2">
 					<div className="flex flex-col">
-						<div className="font-title text-2x1 text-white">{IRTimeFormatter.format(time)}</div>
+						<div className="font-title text-center text-base text-white">{IRTimeFormatter.format(time)}</div>
 						<p
 							className={clsx('text-center text-s font-light', 'text-white text-glow-sky-900 dark:text-glow-sky-500')}
 						>
-							in the 
+							in the IR
 						</p>
 					</div>
 				</div>

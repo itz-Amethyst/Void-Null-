@@ -52,7 +52,7 @@ export default function AboutPage(props: Props) {
 					placeholder="blur"
 					className="block object-cover rounded-xl border-2 border-white"
 				/>
-				<span className="text-sm not-sr-only">Find me ヾ(⌐■_■)ノ♪ , so many kooobs here 🗿</span>
+				<span className="text-sm not-sr-only">Find me ヾ(⌐■_■)ノ♪  🗿</span>
 			</div>
 			<p className="opacity-80">
 				Yo Yo What's up Booooooooooys! My name's Milad! I'm a software engineer currently based in Tehran. I love spending time

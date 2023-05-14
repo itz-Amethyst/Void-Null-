@@ -13,7 +13,7 @@ export default api({
 	async POST({ req }) {
 		const body = schema.parse(req.body);
 
-		const result = await fetch(DISCORD_WEBHOOK, {
+		const result = await fetch(DISCORD_WEBHOOK!, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
