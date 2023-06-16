@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { GetStaticProps } from 'next';
 import React, { useEffect, useReducer, useState } from 'react';
-import { FaGamepad, FaHashtag, FaSmileWink } from 'react-icons/fa';
+import { FaFileAlt, FaGamepad, FaHashtag, FaSmileWink } from 'react-icons/fa';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import {
 	SiBlender,
@@ -71,6 +71,16 @@ export default function Index(props: Props) {
 						aria-label="LinkedIn Profile"
 					>
 						<SiLinkedin className="w-7 h-7" />
+						<span className="sr-only">LinkedIn Profile</span>
+					</a>
+
+					<a
+						href="/resume"
+						target="_blank"
+						rel="noreferrer"
+						aria-label="Resume PDF"
+					>
+						<FaFileAlt className="w-7 h-7" />
 						<span className="sr-only">LinkedIn Profile</span>
 					</a>
 
@@ -259,8 +269,10 @@ function ProjectCard({ repo: project }: { repo: PinnedRepo }) {
 export const getStaticProps: GetStaticProps = async function () {
 	const pinnedRepos = await fetch(`https://gh-pinned.nxl.sh/api/user/${GITHUB_USERNAME}`).then(
 		async (response) => response.json() as Promise<PinnedRepo[]>,
-	);
-
+	)
+	.catch(rejected => {
+		console.log(rejected);
+	});
 
 	return {
 		props: { pinnedRepos },
