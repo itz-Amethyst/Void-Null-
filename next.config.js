@@ -28,6 +28,11 @@ module.exports = {
 				source:'/firstSite',
 				destination: 'https://callme-milad.pages.dev/',
 				permanent: false,
+			},
+			{
+				source: '/resume',
+				destination: 'https://void-null.vercel.app/Milad-Khormaee-Resume.pdf',
+				permanent: false
 			}
 		];
 	},
