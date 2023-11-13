@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { GetStaticProps } from 'next';
 import React, { useEffect, useReducer, useState } from 'react';
@@ -169,6 +170,8 @@ export default function Index(props: Props) {
 					<ListItem icon={SiGit} text="Git" />
 				</ul>
 			</div>
+			<Analytics/>
+
 		</>
 	);
 }

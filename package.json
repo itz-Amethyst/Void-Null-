@@ -5,6 +5,7 @@
 	"dependencies": {
 		"@headlessui/react": "^1.4.2",
 		"@naval-base/ms": "^3.1.0",
+		"@vercel/analytics": "^1.1.1",
 		"clsx": "^1.2.1",
 		"dayjs": "^1.10.7",
 		"framer-motion": "^5.6.0",
