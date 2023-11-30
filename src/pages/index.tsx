@@ -9,10 +9,12 @@ import {
 	SiCsharp,
 	SiDocker,
 	SiDotnet,
+	SiFastapi,
 	SiGit,
 	SiGithub,
 	SiInstagram,
 	SiLinkedin,
+	SiPython,
 	SiReact,
 	SiThreedotjs,
 	SiTwitter,
@@ -168,6 +170,8 @@ export default function Index(props: Props) {
 					<ListItem icon={SiBlender} text="Blender" />
 					<ListItem icon={SiThreedotjs} text="Three.js" />
 					<ListItem icon={SiGit} text="Git" />
+					<ListItem icon={SiFastapi} text="FastApi" />
+					<ListItem icon={SiPython} text="Python" />
 				</ul>
 			</div>
 			<Analytics/>
