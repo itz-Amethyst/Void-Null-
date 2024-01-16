@@ -6,7 +6,7 @@
 // 	return value;
 // }
 
-export const DISCORD_ID = "852796108304023564";
+export const DISCORD_ID = "1001889586626175006";
 export const GITHUB_USERNAME = process.env.GITHUB_USERNAME;
 export const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK;
 // export const LAST_FM_API_KEY = env('LAST_FM_API_KEY');
