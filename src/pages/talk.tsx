@@ -107,14 +107,14 @@ export default function Talk() {
 
 				<div>
 					<ul className="space-y-2 list-disc list-inside">
-						<ListItem icon={HiOutlineMail} text="YouCanCallMeMilad@gmail.com" />
+						<ListItem icon={HiOutlineMail} text="milad.khormaee@gmail.com" />
 						<ListItem
 							icon={SiDiscord}
 							text={
 								lanyard ? (
 									<span className="flex items-center space-x-1">
 										<span>
-											{lanyard.discord_user.username}#{lanyard.discord_user.discriminator}
+											{lanyard.discord_user.username}
 										</span>
 
 										<span
