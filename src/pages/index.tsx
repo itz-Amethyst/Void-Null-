@@ -18,6 +18,9 @@ import {
 	SiReact,
 	SiThreedotjs,
 	SiTwitter,
+	SiDjango,
+	SiPostgresql,
+	SiPostman
 } from 'react-icons/si';
 import { Data as LanyardData } from 'use-lanyard';
 import { ListItem } from '../components/list-item';
@@ -69,7 +72,7 @@ export default function Index(props: Props) {
 					</a>
 
 					<a
-						href="https://www.linkedin.com/in/callme-milad-a47715243/"
+						href="https://www.linkedin.com/in/itz-amethyst/"
 						target="_blank"
 						rel="noreferrer"
 						aria-label="LinkedIn Profile"
@@ -164,15 +167,18 @@ export default function Index(props: Props) {
 					with .Net and React , it's proven when they come together they absorb a lot of power.
 				</p>
 				<ul className="grid grid-cols-3 sm:grid-cols-4 gap-4">
+					<ListItem icon={SiPython} text="Python" />
+					<ListItem icon={SiDjango} text="Django" />
+					<ListItem icon={SiFastapi} text="FastApi" />
+					<ListItem icon={SiPostgresql} text="PostgreSql" />
+					<ListItem icon={SiPostman} text="Postman" />
 					<ListItem icon={SiDocker} text="Docker" />
-					<ListItem icon={SiDotnet} text=".Net" />
 					<ListItem icon={SiCsharp} text="C#" />
+					<ListItem icon={SiDotnet} text=".Net" />
 					<ListItem icon={SiReact} text="React" />
 					<ListItem icon={SiBlender} text="Blender" />
 					<ListItem icon={SiThreedotjs} text="Three.js" />
 					<ListItem icon={SiGit} text="Git" />
-					<ListItem icon={SiFastapi} text="FastApi" />
-					<ListItem icon={SiPython} text="Python" />
 				</ul>
 			</div>
 			<Analytics/>
