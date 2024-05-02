@@ -27,7 +27,6 @@ import { ListItem } from '../components/list-item';
 import { PinnedRepo, useGitHubPinnedRepos } from '../hooks/github';
 import { GITHUB_USERNAME } from '../server/constants';
 import { FullAge } from '../util/time';
-import { promises } from 'dns';
 
 interface Props {
 	pinnedRepos: PinnedRepo[];
