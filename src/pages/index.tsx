@@ -2,13 +2,10 @@ import { Analytics } from '@vercel/analytics/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { GetStaticProps } from 'next';
 import React, { useEffect, useReducer, useState } from 'react';
-import { FaFileAlt, FaGamepad, FaHashtag, FaSmileWink } from 'react-icons/fa';
+import { FaGamepad, FaHashtag, FaSmileWink } from 'react-icons/fa';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import {
-	SiBlender,
-	SiCsharp,
 	SiDocker,
-	SiDotnet,
 	SiFastapi,
 	SiGit,
 	SiGithub,
@@ -16,11 +13,13 @@ import {
 	SiLinkedin,
 	SiPython,
 	SiReact,
-	SiThreedotjs,
 	SiTwitter,
 	SiDjango,
 	SiPostgresql,
-	SiPostman
+	SiPostman,
+	SiGo,
+	SiMongodb,
+	SiRedis,
 } from 'react-icons/si';
 import { Data as LanyardData } from 'use-lanyard';
 import { ListItem } from '../components/list-item';
@@ -80,7 +79,7 @@ export default function Index(props: Props) {
 						<span className="sr-only">LinkedIn Profile</span>
 					</a>
 
-					<a
+					{/* <a
 						href="/resume"
 						target="_blank"
 						rel="noreferrer"
@@ -88,7 +87,7 @@ export default function Index(props: Props) {
 					>
 						<FaFileAlt className="w-7 h-7" />
 						<span className="sr-only">LinkedIn Profile</span>
-					</a>
+					</a> */}
 
 					{showMeme && (
 						<a href="/onlyfans" target="_blank" rel="noreferrer" aria-label="Onlyfans Profile">
@@ -141,7 +140,7 @@ export default function Index(props: Props) {
 					What do I do? 💭
 				</h1>
 				<p className="opacity-80">
-					I'm currently enjoying myself by researching and learning stuffs - Maybe 1 day I will send a shuttle into the air XD
+					I'm currently expanding my knowledge by learning and studying new stuffs
 					<br></br>
 					<br></br>
 					Below are some of my popular open source projects. In total, the following repos have earned me{' '}
@@ -162,21 +161,24 @@ export default function Index(props: Props) {
 					Technologies 💻
 				</h1>
 				<p className="opacity-80">
-					I use tools in the best way of possible. I really love working
-					with .Net and React , it's proven when they come together they absorb a lot of power.
+					Tools and techs i use mostly(probably back-end side):
 				</p>
 				<ul className="grid grid-cols-3 sm:grid-cols-4 gap-4">
 					<ListItem icon={SiPython} text="Python" />
 					<ListItem icon={SiDjango} text="Django" />
 					<ListItem icon={SiFastapi} text="FastApi" />
+					<ListItem icon={SiGo} text="Golang"/>
 					<ListItem icon={SiPostgresql} text="PostgreSql" />
 					<ListItem icon={SiPostman} text="Postman" />
+					<ListItem icon={SiMongodb} text="MongoDB" />
+					<ListItem icon={SiRedis} text="Redis" />
+					{/* <ListItem icon={SiKubernetes} text="KB" /> */}
 					<ListItem icon={SiDocker} text="Docker" />
-					<ListItem icon={SiCsharp} text="C#" />
-					<ListItem icon={SiDotnet} text=".Net" />
+					{/* <ListItem icon={SiCsharp} text="C#" /> */}
+					{/* <ListItem icon={SiDotnet} text=".Net" /> */}
 					<ListItem icon={SiReact} text="React" />
-					<ListItem icon={SiBlender} text="Blender" />
-					<ListItem icon={SiThreedotjs} text="Three.js" />
+					{/* <ListItem icon={SiBlender} text="Blender" /> */}
+					{/* <ListItem icon={SiThreedotjs} text="Three.js" /> */}
 					<ListItem icon={SiGit} text="Git" />
 				</ul>
 			</div>
@@ -280,11 +282,18 @@ function ProjectCard({ repo: project }: { repo: PinnedRepo }) {
 }
 
 export const getStaticProps: GetStaticProps = async function () {
-	const pinnedRepos = await fetch(`https://gh-pinned.nxl.sh/api/user/${GITHUB_USERNAME}`).then(
-		async (response) => response.json() as Promise<PinnedRepo[]>,
-	)
+	const pinnedRepos:PinnedRepo[] = await fetch(`https://gh-pinned-repos-tsj7ta5xfhep.deno.dev/?username=${GITHUB_USERNAME}`)
+	.then(async (response) => {
+		if (!response.ok){
+			console.log("wrong")
+			throw new Error("Network response was not ok. maybe server down")
+		}
+		console.log(response.json())
+		return response.json() as Promise<PinnedRepo[]>;
+	})
 	.catch(rejected => {
 		console.log(rejected);
+		return []
 	});
 
 	return {
